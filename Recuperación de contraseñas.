@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inicio de Sesión</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Pantalla de inicio de sesión -->
+    <div class="login-container" id="login-container">
+        <div class="login-box">
+            <div class="login-image">
+                <img src="path/to/image.png" alt="Clothing Rack">
+            </div>
+            <div class="login-form">
+                <h2>¡WELCOME BACK!</h2>
+                <input type="text" id="username" placeholder="Usuario" required>
+                <input type="password" id="password" placeholder="Contraseña" required>
+                <button onclick="login()">Iniciar sesión</button>
+                <p class="link"><a href="#" onclick="showRecovery()">Recordar contraseña</a></p>
+                <p class="link">¿Todavía no tienes una cuenta? <a href="#">Regístrate</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de recuperación de contraseña -->
+    <div class="login-container hidden" id="recover-container">
+        <div class="login-box">
+            <div class="login-image">
+                <img src="path/to/image.png" alt="Clothing Rack">
+            </div>
+            <div class="login-form">
+                <h2>Recupera tu contraseña</h2>
+                <p>Coloca aquí tu correo para enviarte un correo de recuperación.</p>
+                <input type="email" id="recover-email" placeholder="Correo electrónico" required>
+                <button onclick="recoverPassword()">Enviar correo de recuperación</button>
+                <p class="link"><a href="#" onclick="showLogin()">Iniciar sesión</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+/* Estilo general */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5e6e0;
+    margin: 0;
+}
+
+/* Contenedor de inicio y recuperación */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5e6e0;
+}
+
+.hidden {
+    display: none;
+}
+
+.login-box {
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 80%;
+    max-width: 600px;
+}
+
+.login-image {
+    background-color: #f3d7d1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    padding: 20px;
+}
+
+.login-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.login-form {
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+}
+
+.login-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.login-form p {
+    font-size: 14px;
+    color: #666;
+}
+
+.login-form input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login-form button {
+    width: 90%;
+    padding: 10px;
+    background-color: #f3c7be;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: #e8a99a;
+}
+
+.login-form .link {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.login-form .link a {
+    color: #f3c7be;
+    text-decoration: none;
+}
+// Usuarios ficticios
+let users = [
+    { username: 'analuisagarza', password: 'pagina12', email: 'analuisagarza@gmail.com' },
+    { username: 'user', password: 'userpass', email: 'user@example.com' }
+];
+
+// Mostrar pantalla de recuperación
+function showRecovery() {
+    document.getElementById('login-container').classList.add('hidden');
+    document.getElementById('recover-container').classList.remove('hidden');
+}
+
+// Mostrar pantalla de inicio de sesión
+function showLogin() {
+    document.getElementById('recover-container').classList.add('hidden');
+    document.getElementById('login-container').classList.remove('hidden');
+}
+
+// Inicio de sesión
+function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    const user = users.find(u => u.username === username && u.password === password);
+
+    if (user) {
+        alert(`Bienvenido de nuevo, ${username}!`);
+        // Redirigir a la siguiente página o mostrar contenido
+    } else {
+        alert('Usuario o contraseña incorrectos.');
+    }
+}
+
+// Recuperar contraseña
+function recoverPassword() {
+    const email = document.getElementById('recover-email').value;
+    const user = users.find(u => u.email === email);
+
+    if (user) {
+        alert(`Se ha enviado un correo de recuperación a ${email}`);
+        showLogin();
+    } else {
+        alert('Correo no registrado.');
+    }
+}
